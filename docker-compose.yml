@@ -1,0 +1,65 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: palestras-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: palestras
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./db-init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 5
+
+  backend:
+    build: ./server
+    container_name: palestras-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: ""
+      DB_NAME: palestras
+      DB_PORT: 3306
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./sistemaPalestras
+    container_name: palestras-frontend
+    restart: always
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./sistemaPalestras:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: palestras-phpmyadmin
+    restart: always
+    ports:
+      - "9000:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: ""
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:

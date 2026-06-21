@@ -1,0 +1,100 @@
+<h1>Eventos Disponíveis</h1>
+
+@if (mensagemSucesso) {
+  <div class="alert alert-success alert-dismissible fade show shadow-sm border-0" role="alert" style="background-color: #367C2B; color: #ffffff; max-width: 600px; margin: 0 auto 20px auto;">
+    {{ mensagemSucesso }}
+    <button type="button" class="btn-close btn-close-white" (click)="mensagemSucesso = null" aria-label="Close"></button>
+  </div>
+}
+@if (mensagemErro) {
+  <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0" role="alert" style="max-width: 600px; margin: 0 auto 20px auto;">
+    {{ mensagemErro }}
+    <button type="button" class="btn-close" (click)="mensagemErro = null" aria-label="Close"></button>
+  </div>
+}
+@if (palestras.length > 0) {
+  <div id="gradeEventos" class="row">
+    @for (p of palestras; track p.id) {
+      <div class="col-md-4 col-sm-6 mb-3">
+        <div class="card h-100 shadow-sm border-0 bg-white">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title text-primary font-weight-bold">{{ p.titulo }}</h5>
+              <p class="card-text text-muted">{{ p.descricao }}</p>
+              <hr class="my-2">
+              <p class="card-text">
+                <strong>Palestrante:</strong> {{ p.nomePalestrante }}<br />
+                <strong>Local:</strong> {{ p.localEvento }}<br />
+                <strong>Data:</strong> {{ p.dataEvento | date: 'dd/MM/yyyy' }}<br />
+                <strong>Hora:</strong> {{ p.dataEvento | date: 'HH:mm' }}
+              </p>
+            </div>
+            @if (!userData?.admin) {
+              @if (estaInscrito(p.id)) {
+                <button class="btn btn-danger mt-3" (click)="desinscricao(p.id)">Cancelar Inscrição</button>
+              } @else {
+                <button class="btn btn-success mt-3" (click)="inscricao(p.id)">Participar</button>
+              }
+            }
+            @if (userData?.admin) {
+              <button class="btn btn-warning btn-sm mt-3" (click)="abrirModalParticipantes(p)">
+                Ver Participantes
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="alert alert-info text-center mt-4">Nenhum evento encontrado.</div>
+}
+
+@if (palestraSelecionada) {
+  <div class="modal-backdrop fade show" style="background-color: rgba(0, 0, 0, 0.5); position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1040;"></div>
+  
+  <div class="modal fade show d-block" tabindex="-1" role="dialog" style="z-index: 1050;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content border-0 shadow-lg" style="background-color: #f7fcf6; color: #1B3E15; border-radius: 12px;">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h5 class="modal-title font-weight-bold text-primary" style="font-size: 1.25rem;">
+            Inscritos - {{ palestraSelecionada.titulo }}
+          </h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="fecharModal()" style="filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(827%) hue-rotate(69deg) brightness(96%) contrast(93%);"></button>
+        </div>
+        <div class="modal-body pt-3">
+          @if (carregandoModal) {
+            <div class="text-center py-4">
+              <div class="spinner-border text-success" role="status">
+                <span class="visually-hidden">Carregando...</span>
+              </div>
+            </div>
+          } @else {
+            @if (participantesPalestraSelecionada.length > 0) {
+              <div class="list-group list-group-flush border rounded overflow-hidden" style="max-height: 300px; overflow-y: auto;">
+                @for (part of participantesPalestraSelecionada; track part.email) {
+                  <div class="list-group-item d-flex justify-content-between align-items-center bg-white p-3 border-bottom">
+                    <div>
+                      <strong class="d-block" style="color: #1B3E15; font-size: 0.95rem;">{{ part.nome }}</strong>
+                      <span class="text-muted" style="font-size: 0.85rem;">{{ part.email }}</span>
+                    </div>
+                    <span class="badge rounded-pill bg-success px-2 py-1" style="font-size: 0.75rem;">Inscrito</span>
+                  </div>
+                }
+              </div>
+            } @else {
+              <div class="text-center py-4 text-muted">
+                <p class="mb-0">Nenhum participante inscrito nesta palestra ainda.</p>
+              </div>
+            }
+          }
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-secondary px-4" (click)="fecharModal()" style="background-color: #25521C; border: none; color: #fff;">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

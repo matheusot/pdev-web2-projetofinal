@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  background: linear-gradient(135deg, #e6f4e3 0%, #cce5c8 100%);
+  min-height: 100vh;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #1B3E15;
+}
+
+.navbar {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: #367C2B !important; /* Verde John Deere */
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #FFDE00 !important; /* Amarelo John Deere */
+}
+
+.nav-link {
+  font-weight: 500;
+  transition: color 0.2s;
+  color: #ffffff !important;
+}
+
+.nav-link:hover {
+  color: #FFDE00 !important;
+}
+
+.nav-link.active {
+  color: #FFDE00 !important;
+  font-weight: 700;
+}
+
+/* Padronização global de botões */
+.btn {
+  border-radius: 6px !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+  font-weight: 500;
+}
+
+/* Evitar transições de escala em hover para todos os botões */
+.btn:hover, button:hover {
+  transform: none !important;
+}
+
+/* Tipografia global */
+h1 {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 30px;
+  color: #1B3E15;
+  font-weight: 700;
+}
+
+/* Estilos globais para alertas */
+.alert {
+  border-radius: 6px;
+}
+
+/* Ajuste de links/textos primários do Bootstrap para a nova paleta verde */
+.text-primary {
+  color: #367C2B !important;
+}
+
+/* Padronização global de formulários (Login, Cadastro, Criação de Evento) */
+.standard-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  margin: 50px auto;
+  border: none;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #25521C; /* Verde escuro John Deere */
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.standard-form input {
+  margin-bottom: 10px;
+  border-radius: 6px !important;
+  border: 1px solid #ced4da;
+  padding: 10px !important;
+}
+
+.standard-form input:focus {
+  border-color: #FFDE00 !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 222, 0, 0.25) !important;
+}
+
+.standard-form button[type="submit"] {
+  width: 40%;
+  background-color: #FFDE00; /* Amarelo John Deere */
+  color: #1B3E15;
+  align-self: center;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.standard-form button[type="submit"]:hover:not([disabled]) {
+  background-color: #e6c800;
+}
+
+.standard-form button[type="submit"]:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+/* Botão amarelo outline para o header */
+.btn-outline-yellow {
+  color: #FFDE00 !important;
+  border: 1px solid #FFDE00 !important;
+  background-color: transparent !important;
+  font-weight: 600;
+  transition: all 0.2s ease !important;
+}
+
+.btn-outline-yellow:hover {
+  background-color: #FFDE00 !important;
+  color: #1B3E15 !important;
+}
+
+/* Botão amarelo preenchido para o header (chamada de ação principal) */
+.btn-yellow {
+  background-color: #FFDE00 !important;
+  color: #1B3E15 !important;
+  font-weight: 600;
+  border: 1px solid #FFDE00 !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-yellow:hover {
+  background-color: #e6c800 !important;
+  color: #1B3E15 !important;
+  border-color: #e6c800 !important;
+}

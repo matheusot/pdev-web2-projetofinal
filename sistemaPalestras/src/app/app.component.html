@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">
+      Sistema de Palestras
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        @if (userData?.admin) {
+          <li class="nav-item">
+            <a class="btn btn-yellow me-2" routerLink="/admin" routerLinkActive="active">
+              Cadastrar Palestra
+            </a>
+          </li>
+        }
+        @if (!logado) {
+          @if (currentUrl !== '/login') {
+            <li class="nav-item">
+              <a class="btn btn-outline-yellow" routerLink="/login" routerLinkActive="active">
+                Login
+              </a>
+            </li>
+          }
+          @if (currentUrl !== '/cadastro') {
+            <li class="nav-item">
+              <a class="btn btn-outline-yellow" routerLink="/cadastro" routerLinkActive="active">
+                Cadastro
+              </a>
+            </li>
+          }
+        }
+        @if (logado) {
+          <li class="nav-item position-relative me-2">
+            <button class="btn btn-outline-yellow dropdown-toggle" (click)="toggleMenuUsuario($event)" style="cursor: pointer;">
+              Usuário: {{ userData?.nome }}
+            </button>
+            @if (exibirMenuUsuario) {
+              <div class="dropdown-menu show dropdown-menu-end p-3 shadow-lg border-0" 
+                   style="position: absolute; right: 0; top: 100%; margin-top: 10px; min-width: 250px; background-color: #f7fcf6; color: #1B3E15; z-index: 1000; border-radius: 8px; border: 1px solid #c2e2bd !important;">
+                <h6 class="border-bottom pb-2 mb-2 font-weight-bold" style="color: #367C2B;">Dados do Usuário</h6>
+                <ul class="list-unstyled mb-0" style="font-size: 0.9rem; line-height: 1.6;">
+                  <li><strong>ID:</strong> {{ userData?.id }}</li>
+                  <li><strong>Nome:</strong> {{ userData?.nome }}</li>
+                  <li><strong>Email:</strong> {{ userData?.email }}</li>
+                  <li><strong>Perfil:</strong> {{ userData?.admin ? 'Administrador' : 'Usuário Comum' }}</li>
+                </ul>
+              </div>
+            }
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-light" (click)="logout()">
+              Sair
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>

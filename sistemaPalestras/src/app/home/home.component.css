@@ -1,0 +1,48 @@
+h1,
+h3 {
+  margin: 20px 0;
+  color: #1B3E15;
+  font-weight: 700;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+#gradeEventos {
+  margin: 20px 0;
+}
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05) !important;
+}
+.card-body button {
+  margin: 10px auto 0 auto;
+  border: none;
+  padding: 8px;
+  width: 100%;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+.card-body .btn-success {
+  background-color: #367C2B !important;
+  color: #fff !important;
+}
+.card-body .btn-success:hover {
+  background-color: #25521C !important;
+  color: #fff !important;
+}
+.card-body .btn-danger {
+  background-color: #e63946 !important;
+}
+.card-body .btn-danger:hover {
+  background-color: #d62828 !important;
+}
+.card-body .btn-warning {
+  background-color: #FFDE00 !important;
+  color: #1B3E15 !important;
+}
+.card-body .btn-warning:hover {
+  background-color: #e6c800 !important;
+  color: #1B3E15 !important;
+}
